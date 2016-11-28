@@ -1,4 +1,4 @@
-# storm_course
+# Storm Course
 Repository for a Apache Storm course I'll give to my co-workers
 
 ## Chapter 1: Topologies and bolts
