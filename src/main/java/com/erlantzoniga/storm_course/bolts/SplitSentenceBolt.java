@@ -1,6 +1,7 @@
 package com.erlantzoniga.storm_course.bolts;
 
 import static com.erlantzoniga.storm_course.utils.Constants.TWEET_TEXT;
+import static com.erlantzoniga.storm_course.utils.Constants.WORD;
 
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -21,6 +22,6 @@ public class SplitSentenceBolt extends BaseBasicBolt {
 
   @Override
   public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    declarer.declare(new Fields(TWEET_TEXT));
+    declarer.declare(new Fields(WORD));
   }
 }
