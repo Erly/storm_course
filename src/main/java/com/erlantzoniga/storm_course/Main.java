@@ -1,5 +1,7 @@
 package com.erlantzoniga.storm_course;
 
+import static com.erlantzoniga.storm_course.utils.Constants.SPOUT_RANDOM_SENTENCE;
+
 import com.erlantzoniga.storm_course.spouts.RandomSentenceSpout;
 
 import org.apache.commons.configuration2.Configuration;
@@ -23,9 +25,9 @@ public class Main {
 
       TopologyBuilder builder = new TopologyBuilder();
 
-      builder.setSpout("randomSentence", new RandomSentenceSpout());
+      builder.setSpout(SPOUT_RANDOM_SENTENCE, new RandomSentenceSpout());
 
-      // TODO: add the bolts
+      // TODO: add the bolts;
 
       Config conf = new Config();
 
