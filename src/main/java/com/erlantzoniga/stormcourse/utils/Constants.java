@@ -12,6 +12,7 @@ public class Constants {
   public static final String TWEET_TEXT = "TWEET_TEXT";
   public static final String TWEET_METADATA = "TWEET_METADATA";
   public static final String WORD = "WORD";
+  public static final String COUNT = "COUNT";
 
   public class Configuration {
     public static final String RUN_ON_LOCAL = "Storm.Topology.Local";
