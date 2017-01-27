@@ -1,5 +1,7 @@
 package com.erlantzoniga.stormcourse.spouts;
 
+import com.erlantzoniga.stormcourse.utils.Constants;
+
 import java.util.Map;
 import java.util.Random;
 
@@ -42,6 +44,6 @@ public class RandomSentenceSpout extends BaseRichSpout {
 
   @Override
   public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    declarer.declare(new Fields("word"));
+    declarer.declare(new Fields(Constants.TWEET_TEXT));
   }
 }
