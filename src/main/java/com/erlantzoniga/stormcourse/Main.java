@@ -1,8 +1,7 @@
-package com.erlantzoniga.storm_course;
+package com.erlantzoniga.stormcourse;
 
-import static com.erlantzoniga.storm_course.utils.Constants.SPOUT_RANDOM_SENTENCE;
-
-import com.erlantzoniga.storm_course.spouts.RandomSentenceSpout;
+import com.erlantzoniga.stormcourse.spouts.RandomSentenceSpout;
+import com.erlantzoniga.stormcourse.utils.Constants;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -25,13 +24,13 @@ public class Main {
 
       TopologyBuilder builder = new TopologyBuilder();
 
-      builder.setSpout(SPOUT_RANDOM_SENTENCE, new RandomSentenceSpout());
+      builder.setSpout(Constants.SPOUT_RANDOM_SENTENCE, new RandomSentenceSpout());
 
       // TODO: add the bolts;
 
       Config conf = new Config();
 
-      if (config.getBoolean("local", false)) {
+      if (config.getBoolean(Constants.Configuration.RUN_ON_LOCAL, false)) {
         conf.setDebug(true);
 
         LocalCluster cluster = new LocalCluster();

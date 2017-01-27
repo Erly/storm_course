@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course.bolts;
+package com.erlantzoniga.stormcourse.bolts;
 
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.OutputFieldsDeclarer;

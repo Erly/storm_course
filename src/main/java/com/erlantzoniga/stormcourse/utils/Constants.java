@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course.utils;
+package com.erlantzoniga.stormcourse.utils;
 
 public class Constants {
   public static final String TOPOLOGY_NAME = "STORM_COURSE_TOPOLOGY";
@@ -6,7 +6,7 @@ public class Constants {
   public static final String SPOUT_RANDOM_SENTENCE = "RANDOM_SENTENCE_SPOUT";
 
   public static final String BOLT_SPLIT_SENTENCE = "SPLIT_SENTENCE_BOLT";
-  public static final String BOLT_WORD_COUNT= "WORD_COUNT_BOLT";
+  public static final String BOLT_WORD_COUNT = "WORD_COUNT_BOLT";
 
   public static final String TWEET_ID = "TWEET_ID";
   public static final String TWEET_TEXT = "TWEET_TEXT";

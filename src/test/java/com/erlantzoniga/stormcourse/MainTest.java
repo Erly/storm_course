@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course;
+package com.erlantzoniga.stormcourse;
 
 import org.junit.Before;
 import org.junit.Test;
