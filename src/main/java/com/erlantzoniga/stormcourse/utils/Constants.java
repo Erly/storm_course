@@ -5,7 +5,7 @@ public class Constants {
 
   public static final String SPOUT_RANDOM_SENTENCE = "RANDOM_SENTENCE_SPOUT";
 
-  public static final String BOLT_WORD_COUNT= "WORD_COUNT_BOLT";
+  public static final String BOLT_WORD_COUNT = "WORD_COUNT_BOLT";
 
   public static final String COUNT = "COUNT";
   public static final String WORD = "WORD";

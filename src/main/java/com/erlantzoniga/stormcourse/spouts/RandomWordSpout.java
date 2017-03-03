@@ -27,7 +27,9 @@ public class RandomWordSpout extends BaseRichSpout {
   @Override
   public void nextTuple() {
     Utils.sleep(100);
-    String[] words = new String[]{"cow", "moon", "apple", "doctor", "away", "four", "score", "years", "snow", "white", "dwarfs", "nature"};
+    String[] words =
+        new String[]{"cow", "moon", "apple", "doctor", "away", "four", "score", "years", "snow",
+            "white", "dwarfs", "nature"};
     String sentence = words[rand.nextInt(words.length)];
     collector.emit(new Values(sentence));
   }
