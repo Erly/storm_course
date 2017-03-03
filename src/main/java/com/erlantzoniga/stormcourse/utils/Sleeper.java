@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course.utils;
+package com.erlantzoniga.stormcourse.utils;
 
 public class Sleeper {
   public void sleep(long millis) throws InterruptedException {

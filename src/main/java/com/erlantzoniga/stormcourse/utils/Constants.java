@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course.utils;
+package com.erlantzoniga.stormcourse.utils;
 
 public class Constants {
   public static final String TOPOLOGY_NAME = "StormCourseTopology";

@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course.bolts;
+package com.erlantzoniga.stormcourse.bolts;
 
 import java.util.HashMap;
 import java.util.Map;

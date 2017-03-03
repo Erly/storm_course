@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course;
+package com.erlantzoniga.stormcourse;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;

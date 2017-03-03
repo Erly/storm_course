@@ -1,8 +1,8 @@
-package com.erlantzoniga.storm_course;
+package com.erlantzoniga.stormcourse;
 
-import com.erlantzoniga.storm_course.spouts.RandomWordSpout;
-import com.erlantzoniga.storm_course.utils.Constants;
-import com.erlantzoniga.storm_course.utils.Sleeper;
+import com.erlantzoniga.stormcourse.spouts.RandomWordSpout;
+import com.erlantzoniga.stormcourse.utils.Constants;
+import com.erlantzoniga.stormcourse.utils.Sleeper;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.storm.Config;

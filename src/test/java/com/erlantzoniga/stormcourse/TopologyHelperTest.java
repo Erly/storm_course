@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course;
+package com.erlantzoniga.stormcourse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -7,11 +7,11 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import com.erlantzoniga.storm_course.bolts.WordCountBolt;
-import com.erlantzoniga.storm_course.spouts.RandomWordSpout;
-import com.erlantzoniga.storm_course.test_utils.CustomArgumentMatchers;
-import com.erlantzoniga.storm_course.utils.Constants;
-import com.erlantzoniga.storm_course.utils.Sleeper;
+import com.erlantzoniga.stormcourse.bolts.WordCountBolt;
+import com.erlantzoniga.stormcourse.spouts.RandomWordSpout;
+import com.erlantzoniga.stormcourse.testutils.CustomArgumentMatchers;
+import com.erlantzoniga.stormcourse.utils.Constants;
+import com.erlantzoniga.stormcourse.utils.Sleeper;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.storm.Config;

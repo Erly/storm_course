@@ -1,6 +1,6 @@
-package com.erlantzoniga.storm_course.spouts;
+package com.erlantzoniga.stormcourse.spouts;
 
-import com.erlantzoniga.storm_course.utils.Constants;
+import com.erlantzoniga.stormcourse.utils.Constants;
 
 import java.util.Map;
 import java.util.Random;

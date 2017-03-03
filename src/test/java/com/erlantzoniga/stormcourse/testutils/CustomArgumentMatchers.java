@@ -1,4 +1,4 @@
-package com.erlantzoniga.storm_course.test_utils;
+package com.erlantzoniga.stormcourse.testutils;
 
 import static org.mockito.ArgumentMatchers.argThat;
 

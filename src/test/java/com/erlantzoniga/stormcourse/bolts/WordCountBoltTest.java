@@ -1,11 +1,11 @@
-package com.erlantzoniga.storm_course.bolts;
+package com.erlantzoniga.stormcourse.bolts;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.erlantzoniga.storm_course.test_utils.CustomArgumentMatchers;
-import com.erlantzoniga.storm_course.utils.Constants;
+import com.erlantzoniga.stormcourse.testutils.CustomArgumentMatchers;
+import com.erlantzoniga.stormcourse.utils.Constants;
 
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.OutputFieldsDeclarer;
