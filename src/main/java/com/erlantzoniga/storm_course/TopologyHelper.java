@@ -14,6 +14,7 @@ public class TopologyHelper {
   private TopologyBuilder topologyBuilder;
   private Configuration config;
   private Sleeper sleeper = new Sleeper();
+  private Config conf = new Config();
 
   TopologyHelper(){}
 
@@ -30,7 +31,6 @@ public class TopologyHelper {
   }
 
   public void run() throws InterruptedException {
-    Config conf = new Config();
     if (config.getBoolean(Constants.Properties.RUN_ON_LOCAL, false)) {
       conf.setDebug(true);
 

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WordCountBolt extends BaseBasicBolt {
-  Map<String, Integer> counts = new HashMap<String, Integer>();
+  private Map<String, Integer> counts = new HashMap<String, Integer>();
 
   @Override
   public void execute(Tuple input, BasicOutputCollector collector) {
