@@ -1,6 +1,6 @@
-package com.erlantzoniga.stormcourse.spouts;
+package com.erlantzoniga.storm_course.spouts;
 
-import com.erlantzoniga.stormcourse.utils.Constants;
+import com.erlantzoniga.storm_course.utils.Constants;
 
 import java.util.Map;
 import java.util.Random;
@@ -13,7 +13,7 @@ import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
 import org.apache.storm.utils.Utils;
 
-public class RandomSentenceSpout extends BaseRichSpout {
+public class RandomWordSpout extends BaseRichSpout {
   private SpoutOutputCollector collector;
   private Random rand;
 
@@ -27,10 +27,8 @@ public class RandomSentenceSpout extends BaseRichSpout {
   @Override
   public void nextTuple() {
     Utils.sleep(100);
-    String[] sentences = new String[]{"the cow jumped over the moon",
-        "an apple a day keeps the doctor away", "four score and seven years ago",
-        "snow white and the seven dwarfs", "i am at two with nature"};
-    String sentence = sentences[rand.nextInt(sentences.length)];
+    String[] words = new String[]{"cow", "moon", "apple", "doctor", "away", "four", "score", "years", "snow", "white", "dwarfs", "nature"};
+    String sentence = words[rand.nextInt(words.length)];
     collector.emit(new Values(sentence));
   }
 
@@ -44,6 +42,6 @@ public class RandomSentenceSpout extends BaseRichSpout {
 
   @Override
   public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    declarer.declare(new Fields(Constants.TWEET_TEXT));
+    declarer.declare(new Fields(Constants.WORD));
   }
 }

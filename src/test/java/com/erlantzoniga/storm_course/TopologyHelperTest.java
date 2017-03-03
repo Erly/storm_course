@@ -8,7 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.erlantzoniga.storm_course.bolts.WordCountBolt;
-import com.erlantzoniga.storm_course.spouts.RandomSentenceSpout;
+import com.erlantzoniga.storm_course.spouts.RandomWordSpout;
 import com.erlantzoniga.storm_course.test_utils.CustomArgumentMatchers;
 import com.erlantzoniga.storm_course.utils.Constants;
 import com.erlantzoniga.storm_course.utils.Sleeper;
@@ -68,7 +68,7 @@ public class TopologyHelperTest {
     TopologyHelper returnedTopologyHelper = topologyHelper.configure();
 
     // assert
-    verify(mockTopologyBuilder).setSpout(eq(Constants.SPOUT_RANDOM_SENTENCE), any(RandomSentenceSpout.class));
+    verify(mockTopologyBuilder).setSpout(eq(Constants.SPOUT_RANDOM_SENTENCE), any(RandomWordSpout.class));
     verify(mockTopologyBuilder).setBolt(eq(Constants.BOLT_WORD_COUNT), any(WordCountBolt.class));
     verify(mockBoltDeclarer).fieldsGrouping(eq(Constants.SPOUT_RANDOM_SENTENCE), CustomArgumentMatchers.fieldsEq(new Fields(Constants.WORD)));
     assertThat(returnedTopologyHelper).isEqualTo(topologyHelper);

@@ -1,6 +1,6 @@
 package com.erlantzoniga.storm_course;
 
-import com.erlantzoniga.storm_course.spouts.RandomSentenceSpout;
+import com.erlantzoniga.storm_course.spouts.RandomWordSpout;
 import com.erlantzoniga.storm_course.utils.Constants;
 import com.erlantzoniga.storm_course.utils.Sleeper;
 
@@ -24,7 +24,7 @@ public class TopologyHelper {
   }
 
   public TopologyHelper configure() {
-    topologyBuilder.setSpout(Constants.SPOUT_RANDOM_SENTENCE, new RandomSentenceSpout());
+    topologyBuilder.setSpout(Constants.SPOUT_RANDOM_SENTENCE, new RandomWordSpout());
     // TODO: add the wordcount bolt;
 
     return this;
