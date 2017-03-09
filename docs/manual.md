@@ -14,6 +14,7 @@
 			- [Spout](#spout)
 			- [Bolt](#bolt)
 			- [Stream](#stream)
+			- [Tuple](#tuple)
 
 <!-- /TOC -->
 ## What is storm?
@@ -26,7 +27,6 @@ Messages will flow continuosly through the system
 
 ###### Batching (Trident)
 Messages will be grouped and then processed in batchs, this is more or less how Spark-streaming (quite ironic the streaming in the name) works.
-
 
 ## Components
 A storm cluster consists on several nodes that run a topology.
@@ -53,13 +53,22 @@ A topology is essentially a job that runs forever. This _job_ is a graph of stre
 ![image](./images/topology.png)
 
 #### Spout
-The spouts are the sources of tuples of a topology. It can read from a queue, an API, or just produce a stream of random stuff. A topology needs to have at least 1 spout but can have up to n.
+The spouts are the sources of tuples in a topology. It can read from a queue, an API, or just produce a stream of random stuff. A topology needs to have at least 1 spout but can have up to n.
 
 #### Bolt
-The bolts subscribe to any number of streams and receive tuples from them, do some processing and optionally they can emit tuples to other streams.
+The bolts subscribe to any number of streams and receive tuples from them, do some processing and optionally they can emit tuples to other streams. The bolts are responsible for declaring their output streams and the tuples that are sent on them.
+
+#### Task
+A task is basically an instance of a spout/bolt. More than one task can run in a single thread but a task can't be executed in more than one thread. We'll be explain tasks, threads and processes in more detail on the [Parallelism](#parallelism) chapter.
 
 #### Stream
-The streams are composed of tuples and connect bolts with each other and with spouts.
+The streams are composed of tuples and connect bolts (its tasks actually) with each other and with spouts. Streams have names to be able to differentiate the different output streams of a bolt, if no name is supplied when defining it, it will have **default** as its name.
+
+##### Stream grouping
+Stream grouping tells storm how to send tuples between tasks of different bolts. Without stream groupings Storm wouldn't be able to know what task of a bolt should receive the tuples emitted by the tasks of another bolt. There is a **ShuffleGrouping** that can be used when we don't care which tasks receives a tuple, but sometimes we want to group the tuples by a certain field so they get sent to the same task or send a tuple to all the possible tasks and not just to one.
+
+#### Tuple
+Tuples are the objects used by storm to pass information between bolts (and from the spouts). A tuple is a named list of values (more or less like a Map) and this values can be of any type. Storm supports all the primitive types, string and byte arrays natively and you can pass any other type as long as you implement a serializer for that type.
 
 ---
 <b id="pacemaker"><sup>1</sup></b>: Starting with Storm 1.0 a pacemaker service can be run to process heartbeats from workers to avoid zookeeper from becoming a bottleneck when the storm cluster is scaled too much [↩](#a1)
