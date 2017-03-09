@@ -1,5 +1,4 @@
 # Storm Manual
-
 <!-- TOC depthFrom:1 depthTo:4 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Storm Manual](#storm-manual)
@@ -13,6 +12,7 @@
 		- [Topologies](#topologies)
 			- [Spout](#spout)
 			- [Bolt](#bolt)
+			- [Task](#task)
 			- [Stream](#stream)
 			- [Tuple](#tuple)
 
