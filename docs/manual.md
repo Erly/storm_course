@@ -15,6 +15,8 @@
 			- [Task](#task)
 			- [Stream](#stream)
 			- [Tuple](#tuple)
+		- [Concepts](#concepts)
+			- [Acking](#acking)
 
 <!-- /TOC -->
 ## What is storm?
