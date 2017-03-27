@@ -70,5 +70,11 @@ Stream grouping tells storm how to send tuples between tasks of different bolts.
 #### Tuple
 Tuples are the objects used by storm to pass information between bolts (and from the spouts). A tuple is a named list of values (more or less like a Map) and this values can be of any type. Storm supports all the primitive types, string and byte arrays natively and you can pass any other type as long as you implement a serializer for that type.
 
+### Concepts
+#### Acking
+Storm can guarantee that messages get processed and for this it uses acking. Basically when a bolt ends working with a tuple it must ack it to acknowledge that it has been correctly processed. On the other side it has to fail it when an error has occurred and it wants it to be retried.
+
+Since most bolts just ack the tuple at the end of the process method there is **IBasicBolt** that makes this automatically so you only have to worry about the process logic. Bear in mind that when using the BasicBolt a _FailedException_ must be thrown to make a tuple fail.
+
 ---
 <b id="pacemaker"><sup>1</sup></b>: Starting with Storm 1.0 a pacemaker service can be run to process heartbeats from workers to avoid zookeeper from becoming a bottleneck when the storm cluster is scaled too much [↩](#a1)

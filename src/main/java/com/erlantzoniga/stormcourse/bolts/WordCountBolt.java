@@ -27,6 +27,6 @@ public class WordCountBolt extends BaseBasicBolt {
 
   @Override
   public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    // TODO: Declare the map as output fields
+    // TODO: Declare the word and count as output fields
   }
 }
