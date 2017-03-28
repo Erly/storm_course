@@ -37,7 +37,8 @@ public class TopologyHelper {
    */
   public TopologyHelper configure() {
     topologyBuilder.setSpout(Constants.SPOUT_RANDOM_SENTENCE, new RandomWordSpout());
-    topologyBuilder.setBolt(Constants.BOLT_WORD_COUNT, new WordCountBolt()).fieldsGrouping(Constants.SPOUT_RANDOM_SENTENCE, new Fields(Constants.WORD));
+    topologyBuilder.setBolt(Constants.BOLT_WORD_COUNT, new WordCountBolt())
+        .fieldsGrouping(Constants.SPOUT_RANDOM_SENTENCE, new Fields(Constants.WORD));
 
     return this;
   }
@@ -58,7 +59,7 @@ public class TopologyHelper {
       conf.setDebug(true);
 
       LocalCluster cluster = new LocalCluster();
-      cluster.submitTopology(Constants.TOPOLOGY_NAME, conf,  topologyBuilder.createTopology());
+      cluster.submitTopology(Constants.TOPOLOGY_NAME, conf, topologyBuilder.createTopology());
 
       sleeper.sleep(config.getInt(Constants.Properties.LOCAL_TOPOLOGY_DURATION, 10000));
 
@@ -66,7 +67,8 @@ public class TopologyHelper {
     } else {
       conf.setNumWorkers(config.getInt(Config.TOPOLOGY_WORKERS, 1));
 
-      StormSubmitter.submitTopology(Constants.TOPOLOGY_NAME, conf, topologyBuilder.createTopology());
+      StormSubmitter
+          .submitTopology(Constants.TOPOLOGY_NAME, conf, topologyBuilder.createTopology());
     }
   }
 }
