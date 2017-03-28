@@ -1,5 +1,6 @@
 package com.erlantzoniga.stormcourse;
 
+import com.erlantzoniga.stormcourse.bolts.WordCountBolt;
 import com.erlantzoniga.stormcourse.spouts.RandomWordSpout;
 import com.erlantzoniga.stormcourse.utils.Constants;
 import com.erlantzoniga.stormcourse.utils.Sleeper;
@@ -7,10 +8,12 @@ import com.erlantzoniga.stormcourse.utils.Sleeper;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
+import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.tuple.Fields;
 
 public class TopologyHelper {
 
@@ -34,7 +37,7 @@ public class TopologyHelper {
    */
   public TopologyHelper configure() {
     topologyBuilder.setSpout(Constants.SPOUT_RANDOM_SENTENCE, new RandomWordSpout());
-    // TODO: add the wordcount bolt;
+    topologyBuilder.setBolt(Constants.BOLT_WORD_COUNT, new WordCountBolt()).fieldsGrouping(Constants.SPOUT_RANDOM_SENTENCE, new Fields(Constants.WORD));
 
     return this;
   }
@@ -55,15 +58,15 @@ public class TopologyHelper {
       conf.setDebug(true);
 
       LocalCluster cluster = new LocalCluster();
-      // TODO: Run topology in local mode
+      cluster.submitTopology(Constants.TOPOLOGY_NAME, conf,  topologyBuilder.createTopology());
 
       sleeper.sleep(config.getInt(Constants.Properties.LOCAL_TOPOLOGY_DURATION, 10000));
 
       cluster.shutdown();
     } else {
-      // TODO: Configure number of workers
+      conf.setNumWorkers(config.getInt(Config.TOPOLOGY_WORKERS, 1));
 
-      // TODO: Run topology in remote cluster
+      StormSubmitter.submitTopology(Constants.TOPOLOGY_NAME, conf, topologyBuilder.createTopology());
     }
   }
 }
