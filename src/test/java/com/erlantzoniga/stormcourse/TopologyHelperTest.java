@@ -105,7 +105,7 @@ public class TopologyHelperTest {
     topologyHelper.run();
 
     // assert
-    verify(mockConf).put(Config.TOPOLOGY_WORKERS, 2);
+    verify(mockConf).setNumWorkers(2);
     PowerMockito.verifyStatic();
     StormSubmitter.submitTopology(Constants.TOPOLOGY_NAME, mockConf, mockTopology);
   }
