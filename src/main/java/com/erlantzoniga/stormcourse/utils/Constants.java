@@ -9,6 +9,7 @@ public class Constants {
 
   public static final String COUNT = "COUNT";
   public static final String WORD = "WORD";
+  public static final String TWEET = "TWEET";
 
   public static class Properties {
     public static final String RUN_ON_LOCAL = "storm.topology.local";
