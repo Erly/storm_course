@@ -18,7 +18,7 @@ import java.util.UUID;
 public class RandomTweetSpout extends BaseRichSpout {
   private SpoutOutputCollector collector;
   private Random rand;
-  private HashMap<UUID, String> emittedTuples;
+  HashMap<UUID, String> emittedTuples;
 
   @Override
   public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {

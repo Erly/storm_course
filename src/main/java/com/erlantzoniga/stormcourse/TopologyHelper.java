@@ -36,9 +36,12 @@ public class TopologyHelper {
    * @return The same instance so you can call it like this topologyHelper.configure().run();
    */
   public TopologyHelper configure() {
-    topologyBuilder.setSpout(Constants.SPOUT_RANDOM_SENTENCE, new RandomWordSpout());
+    // TODO: Change the RandomWordSpout for the RandomTweetSpout
+    topologyBuilder.setSpout(Constants.SPOUT_RANDOM_WORD, new RandomWordSpout());
+    // TODO: Add the SentenceSplitterBolt (use localOrShuffleGrouping)
+    // TODO: Modify the topology so the WordCountBolt reads the SentenceSplitterBolt stream
     topologyBuilder.setBolt(Constants.BOLT_WORD_COUNT, new WordCountBolt())
-        .fieldsGrouping(Constants.SPOUT_RANDOM_SENTENCE, new Fields(Constants.WORD));
+        .fieldsGrouping(Constants.SPOUT_RANDOM_WORD, new Fields(Constants.WORD));
 
     return this;
   }

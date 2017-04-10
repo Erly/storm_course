@@ -7,7 +7,9 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import com.erlantzoniga.stormcourse.bolts.SentenceSplitterBolt;
 import com.erlantzoniga.stormcourse.bolts.WordCountBolt;
+import com.erlantzoniga.stormcourse.spouts.RandomTweetSpout;
 import com.erlantzoniga.stormcourse.spouts.RandomWordSpout;
 import com.erlantzoniga.stormcourse.testutils.CustomArgumentMatchers;
 import com.erlantzoniga.stormcourse.utils.Constants;
@@ -61,16 +63,21 @@ public class TopologyHelperTest {
   @Test
   public void test_configure() {
     // prepare
-    BoltDeclarer mockBoltDeclarer = mock(BoltDeclarer.class);
-    doReturn(mockBoltDeclarer).when(mockTopologyBuilder).setBolt(eq(Constants.BOLT_WORD_COUNT), any(WordCountBolt.class));
+    BoltDeclarer mockSentenceSplitterBoltDeclarer = mock(BoltDeclarer.class);
+    BoltDeclarer mockWordCountBoltDeclarer = mock(BoltDeclarer.class);
+    doReturn(mockSentenceSplitterBoltDeclarer).when(mockTopologyBuilder).setBolt(eq(Constants.BOLT_SENTENCE_SPLITTER), any(SentenceSplitterBolt.class));
+    doReturn(mockWordCountBoltDeclarer).when(mockTopologyBuilder).setBolt(eq(Constants.BOLT_WORD_COUNT), any(WordCountBolt.class));
 
     // act
     TopologyHelper returnedTopologyHelper = topologyHelper.configure();
 
     // assert
-    verify(mockTopologyBuilder).setSpout(eq(Constants.SPOUT_RANDOM_SENTENCE), any(RandomWordSpout.class));
+    verify(mockTopologyBuilder).setSpout(eq(Constants.SPOUT_RANDOM_TWEET), any(RandomTweetSpout.class));
+    verify(mockTopologyBuilder).setBolt(eq(Constants.BOLT_SENTENCE_SPLITTER), any(
+        SentenceSplitterBolt.class));
     verify(mockTopologyBuilder).setBolt(eq(Constants.BOLT_WORD_COUNT), any(WordCountBolt.class));
-    verify(mockBoltDeclarer).fieldsGrouping(eq(Constants.SPOUT_RANDOM_SENTENCE), CustomArgumentMatchers.fieldsEq(new Fields(Constants.WORD)));
+    verify(mockSentenceSplitterBoltDeclarer).localOrShuffleGrouping(eq(Constants.SPOUT_RANDOM_TWEET));
+    verify(mockWordCountBoltDeclarer).fieldsGrouping(eq(Constants.BOLT_SENTENCE_SPLITTER), CustomArgumentMatchers.fieldsEq(new Fields(Constants.WORD)));
     assertThat(returnedTopologyHelper).isEqualTo(topologyHelper);
   }
 
