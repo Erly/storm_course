@@ -58,4 +58,19 @@ public class RandomTweetSpout extends BaseRichSpout {
     System.out.println(msgId + " failed");
     // TODO: re-emit the failed tuple by getting the text from the emitted tuples map
   }
+
+  @Override
+  public void close() {
+    super.close();
+  }
+
+  @Override
+  public void activate() {
+    super.activate();
+  }
+
+  @Override
+  public void deactivate() {
+    super.deactivate();
+  }
 }
