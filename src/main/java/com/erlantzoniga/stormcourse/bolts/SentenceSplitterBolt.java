@@ -12,7 +12,7 @@ import org.apache.storm.tuple.Values;
 public class SentenceSplitterBolt extends BaseBasicBolt {
   @Override
   public void execute(Tuple input, BasicOutputCollector collector) {
-    // TODO: Get the tweet and split it into words (hint: the regex for space in java is //s+)
+    // TODO: Get the tweet and split it into words (hint: the regex for space in java is \\s+)
     String tweet;
     String[] words;
     for (int i = 0; i < words.length; i++) {

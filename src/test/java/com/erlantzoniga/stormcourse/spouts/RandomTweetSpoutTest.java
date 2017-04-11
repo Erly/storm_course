@@ -1,6 +1,10 @@
 package com.erlantzoniga.stormcourse.spouts;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -13,11 +17,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RandomTweetSpoutTest {
@@ -40,13 +40,14 @@ public class RandomTweetSpoutTest {
   public void ack_ok() {
     // prepare
     UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426655440000");
+    randomTweetSpout.emittedTuples = new HashMap<>();
     randomTweetSpout.emittedTuples.put(uuid, "Test sentence");
 
     // act
     randomTweetSpout.ack(uuid);
 
     // assert
-    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 acked");
+    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 acked\n");
     assertThat(randomTweetSpout.emittedTuples).hasSize(0);
   }
 
@@ -62,7 +63,7 @@ public class RandomTweetSpoutTest {
     randomTweetSpout.fail(uuid);
 
     // assert
-    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 failed");
+    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 failed\n");
     Mockito.verify(mockCollector).emit(new Values("Test sentence"), uuid);
   }
 }

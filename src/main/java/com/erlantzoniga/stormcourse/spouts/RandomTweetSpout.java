@@ -2,6 +2,11 @@ package com.erlantzoniga.stormcourse.spouts;
 
 import com.erlantzoniga.stormcourse.utils.Constants;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -9,11 +14,6 @@ import org.apache.storm.topology.base.BaseRichSpout;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
 import org.apache.storm.utils.Utils;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 public class RandomTweetSpout extends BaseRichSpout {
   private SpoutOutputCollector collector;
@@ -55,7 +55,7 @@ public class RandomTweetSpout extends BaseRichSpout {
 
   @Override
   public void fail(Object msgId) {
-    System.out.println(msgId + "failed");
+    System.out.println(msgId + " failed");
     // TODO: re-emit the failed tuple by getting the text from the emitted tuples map
   }
 }
