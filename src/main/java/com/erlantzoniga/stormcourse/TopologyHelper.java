@@ -1,7 +1,8 @@
 package com.erlantzoniga.stormcourse;
 
+import com.erlantzoniga.stormcourse.bolts.SentenceSplitterBolt;
 import com.erlantzoniga.stormcourse.bolts.WordCountBolt;
-import com.erlantzoniga.stormcourse.spouts.RandomWordSpout;
+import com.erlantzoniga.stormcourse.spouts.RandomTweetSpout;
 import com.erlantzoniga.stormcourse.utils.Constants;
 import com.erlantzoniga.stormcourse.utils.Sleeper;
 
@@ -37,11 +38,13 @@ public class TopologyHelper {
    */
   public TopologyHelper configure() {
     // TODO: Change the RandomWordSpout for the RandomTweetSpout
-    topologyBuilder.setSpout(Constants.SPOUT_RANDOM_WORD, new RandomWordSpout());
+    topologyBuilder.setSpout(Constants.SPOUT_RANDOM_TWEET, new RandomTweetSpout());
     // TODO: Add the SentenceSplitterBolt (use localOrShuffleGrouping)
+    topologyBuilder.setBolt(Constants.BOLT_SENTENCE_SPLITTER, new SentenceSplitterBolt())
+        .localOrShuffleGrouping(Constants.SPOUT_RANDOM_TWEET);
     // TODO: Modify the topology so the WordCountBolt reads the SentenceSplitterBolt stream
     topologyBuilder.setBolt(Constants.BOLT_WORD_COUNT, new WordCountBolt())
-        .fieldsGrouping(Constants.SPOUT_RANDOM_WORD, new Fields(Constants.WORD));
+        .fieldsGrouping(Constants.BOLT_SENTENCE_SPLITTER, new Fields(Constants.WORD));
 
     return this;
   }

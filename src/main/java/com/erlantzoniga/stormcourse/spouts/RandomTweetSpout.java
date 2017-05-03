@@ -51,12 +51,14 @@ public class RandomTweetSpout extends BaseRichSpout {
   public void ack(Object msgId) {
     System.out.println(msgId + " acked");
     // TODO: remove the tuple from the emitted tuples map
+    emittedTuples.remove(msgId);
   }
 
   @Override
   public void fail(Object msgId) {
     System.out.println(msgId + " failed");
     // TODO: re-emit the failed tuple by getting the text from the emitted tuples map
+    collector.emit(new Values(emittedTuples.get(msgId)), msgId);
   }
 
   @Override
