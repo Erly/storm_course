@@ -47,7 +47,8 @@ public class RandomTweetSpoutTest {
     randomTweetSpout.ack(uuid);
 
     // assert
-    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 acked\n");
+    assertThat(outContent.toString())
+        .isEqualTo("123e4567-e89b-12d3-a456-426655440000 acked" + System.lineSeparator());
     assertThat(randomTweetSpout.emittedTuples).hasSize(0);
   }
 
@@ -56,14 +57,16 @@ public class RandomTweetSpoutTest {
     // prepare
     UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426655440000");
     SpoutOutputCollector mockCollector = Mockito.mock(SpoutOutputCollector.class);
-    randomTweetSpout.open(Mockito.mock(Map.class), Mockito.mock(TopologyContext.class), mockCollector);
+    randomTweetSpout
+        .open(Mockito.mock(Map.class), Mockito.mock(TopologyContext.class), mockCollector);
     randomTweetSpout.emittedTuples.put(uuid, "Test sentence");
 
     // act
     randomTweetSpout.fail(uuid);
 
     // assert
-    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 failed\n");
+    assertThat(outContent.toString())
+        .isEqualTo("123e4567-e89b-12d3-a456-426655440000 failed" + System.lineSeparator());
     Mockito.verify(mockCollector).emit(new Values("Test sentence"), uuid);
   }
 }
