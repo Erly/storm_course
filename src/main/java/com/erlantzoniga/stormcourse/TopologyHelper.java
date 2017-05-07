@@ -2,6 +2,7 @@ package com.erlantzoniga.stormcourse;
 
 import com.erlantzoniga.stormcourse.bolts.SentenceSplitterBolt;
 import com.erlantzoniga.stormcourse.bolts.WordCountBolt;
+import com.erlantzoniga.stormcourse.core.MockLocationCalculator;
 import com.erlantzoniga.stormcourse.spouts.RandomTweetSpout;
 import com.erlantzoniga.stormcourse.utils.Constants;
 import com.erlantzoniga.stormcourse.utils.Sleeper;
@@ -15,6 +16,8 @@ import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.tuple.Fields;
+
+import dagger.Component;
 
 public class TopologyHelper {
 
@@ -42,6 +45,7 @@ public class TopologyHelper {
         .localOrShuffleGrouping(Constants.SPOUT_RANDOM_TWEET);
     topologyBuilder.setBolt(Constants.BOLT_WORD_COUNT, new WordCountBolt())
         .fieldsGrouping(Constants.BOLT_SENTENCE_SPLITTER, new Fields(Constants.WORD));
+    //topologyBuilder.setBolt(Constants.BOLT_LOCATION_CALCULATOR, )
 
     return this;
   }

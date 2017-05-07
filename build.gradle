@@ -1,7 +1,11 @@
-group 'stormcourse'
-version '1.0-SNAPSHOT'
+plugins {
+    id "net.ltgt.apt" version "0.10"
+}
 
 apply plugin: 'java'
+
+group 'stormcourse'
+version '1.0-SNAPSHOT'
 
 repositories {
     mavenLocal()
@@ -13,9 +17,19 @@ dependencies {
     compile 'org.apache.commons:commons-configuration2:2.1.1'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'org.apache.storm:storm-core:1.0.2'
+    compile 'com.google.dagger:dagger:2.10'
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.5.2'
-    testCompile 'org.mockito:mockito-core:2.7.11'
-    testCompile 'org.powermock:powermock-api-mockito2:1.7.0RC2'
-    testCompile 'org.powermock:powermock-module-junit4:1.7.0RC2'
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    testCompile 'org.powermock:powermock-api-mockito2:1.7.0RC4'
+    testCompile 'org.powermock:powermock-module-junit4:1.7.0RC4'
+    apt 'com.google.dagger:dagger-compiler:2.10'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+}
+
+test {
+    maxParallelForks = 4
 }
