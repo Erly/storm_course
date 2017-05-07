@@ -19,6 +19,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.erlantzoniga.stormcourse.model.Tweet;
+
 @RunWith(MockitoJUnitRunner.class)
 public class RandomTweetSpoutTest {
 
@@ -40,14 +42,16 @@ public class RandomTweetSpoutTest {
   public void ack_ok() {
     // prepare
     UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426655440000");
+    Tweet tweet = new Tweet("Test sentence", 1.1234f, 9.9876f);
     randomTweetSpout.emittedTuples = new HashMap<>();
-    randomTweetSpout.emittedTuples.put(uuid, "Test sentence");
+    randomTweetSpout.emittedTuples.put(uuid, tweet);
 
     // act
     randomTweetSpout.ack(uuid);
 
     // assert
-    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 acked\n");
+    assertThat(outContent.toString())
+        .isEqualTo("123e4567-e89b-12d3-a456-426655440000 acked" + System.lineSeparator());
     assertThat(randomTweetSpout.emittedTuples).hasSize(0);
   }
 
@@ -55,15 +59,18 @@ public class RandomTweetSpoutTest {
   public void fail_ok() {
     // prepare
     UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426655440000");
+    Tweet tweet = new Tweet("Test sentence", 1.1234f, 9.9876f);
     SpoutOutputCollector mockCollector = Mockito.mock(SpoutOutputCollector.class);
-    randomTweetSpout.open(Mockito.mock(Map.class), Mockito.mock(TopologyContext.class), mockCollector);
-    randomTweetSpout.emittedTuples.put(uuid, "Test sentence");
+    randomTweetSpout
+        .open(Mockito.mock(Map.class), Mockito.mock(TopologyContext.class), mockCollector);
+    randomTweetSpout.emittedTuples.put(uuid, tweet);
 
     // act
     randomTweetSpout.fail(uuid);
 
     // assert
-    assertThat(outContent.toString()).isEqualTo("123e4567-e89b-12d3-a456-426655440000 failed\n");
-    Mockito.verify(mockCollector).emit(new Values("Test sentence"), uuid);
+    assertThat(outContent.toString())
+        .isEqualTo("123e4567-e89b-12d3-a456-426655440000 failed" + System.lineSeparator());
+    Mockito.verify(mockCollector).emit(new Values(tweet), uuid);
   }
 }

@@ -1,5 +1,6 @@
 package com.erlantzoniga.stormcourse.bolts;
 
+import com.erlantzoniga.stormcourse.model.Tweet;
 import com.erlantzoniga.stormcourse.utils.Constants;
 
 import org.apache.storm.topology.BasicOutputCollector;
@@ -22,9 +23,10 @@ public class SentenceSplitterBoltTest {
   @Test
   public void execute_ok() {
     // prepare
+    Tweet tweet = new Tweet("Test tweet", 1.1234f, 9.9876f);
     Tuple mockTuple = Mockito.mock(Tuple.class);
     BasicOutputCollector mockBasicOutputCollector = Mockito.mock(BasicOutputCollector.class);
-    Mockito.doReturn("Test tweet").when(mockTuple).getStringByField(Constants.TWEET);
+    Mockito.doReturn(tweet).when(mockTuple).getValueByField(Constants.TWEET);
 
     // act
     sentenceSplitterBolt.execute(mockTuple, mockBasicOutputCollector);

@@ -1,5 +1,6 @@
 package com.erlantzoniga.stormcourse.spouts;
 
+import com.erlantzoniga.stormcourse.model.Tweet;
 import com.erlantzoniga.stormcourse.utils.Constants;
 
 import java.util.HashMap;
@@ -18,7 +19,14 @@ import org.apache.storm.utils.Utils;
 public class RandomTweetSpout extends BaseRichSpout {
   private SpoutOutputCollector collector;
   private Random rand;
-  HashMap<UUID, String> emittedTuples;
+  HashMap<UUID, Tweet> emittedTuples;
+
+  private final String[] sentences =
+      new String[]{"the cow jumped over the moon", "an apple a day keeps the doctor away",
+          "four score and seven years ago", "snow white and the seven dwarfs",
+          "i am at two with nature"};
+  private final float[] coordinates =
+      new float[]{20.5483f, 82.1638f, -38.3762f, 17.4701f, 52.0512f, -68.9535f};
 
   @Override
   public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
@@ -30,14 +38,12 @@ public class RandomTweetSpout extends BaseRichSpout {
   @Override
   public void nextTuple() {
     Utils.sleep(100);
-    String[] sentences =
-        new String[]{"the cow jumped over the moon", "an apple a day keeps the doctor away",
-            "four score and seven years ago", "snow white and the seven dwarfs",
-            "i am at two with nature"};
     final String sentence = sentences[rand.nextInt(sentences.length)];
+    final float latitude = coordinates[rand.nextInt(coordinates.length)];
+    final float longitude = coordinates[rand.nextInt(coordinates.length)];
 
     UUID msgId = UUID.randomUUID();
-    emittedTuples.put(msgId, sentence);
+    emittedTuples.put(msgId, new Tweet(sentence, latitude, longitude));
 
     collector.emit(new Values(sentence), msgId);
   }
@@ -50,14 +56,12 @@ public class RandomTweetSpout extends BaseRichSpout {
   @Override
   public void ack(Object msgId) {
     System.out.println(msgId + " acked");
-    // TODO: remove the tuple from the emitted tuples map
     emittedTuples.remove(msgId);
   }
 
   @Override
   public void fail(Object msgId) {
     System.out.println(msgId + " failed");
-    // TODO: re-emit the failed tuple by getting the text from the emitted tuples map
     collector.emit(new Values(emittedTuples.get(msgId)), msgId);
   }
 
