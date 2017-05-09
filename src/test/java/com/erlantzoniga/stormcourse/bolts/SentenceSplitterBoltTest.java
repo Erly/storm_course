@@ -14,9 +14,14 @@ import org.apache.storm.tuple.Values;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.ArgumentMatchers.eq;
+
+@RunWith(MockitoJUnitRunner.class)
 public class SentenceSplitterBoltTest {
 
   SentenceSplitterBolt sentenceSplitterBolt;
@@ -42,10 +47,10 @@ public class SentenceSplitterBoltTest {
     sentenceSplitterBolt.execute(mockTuple, mockBasicOutputCollector);
 
     // assert
-    Mockito.verify(mockBasicOutputCollector, Mockito.times(1)).emit(new Values(id, "Test"));
-    Mockito.verify(mockBasicOutputCollector, Mockito.times(1)).emit(new Values(id, "tweet"));
+    Mockito.verify(mockBasicOutputCollector, Mockito.times(1)).emit(Constants.STREAM_WORD, new Values(id, "Test"));
+    Mockito.verify(mockBasicOutputCollector, Mockito.times(1)).emit(Constants.STREAM_WORD, new Values(id, "tweet"));
     Mockito.verify(mockBasicOutputCollector, Mockito.times(1))
-        .emit(new Values(id, 1.1234f, 9.9876f));
+        .emit(Constants.STREAM_COORDINATES, new Values(id, 1.1234f, 9.9876f));
   }
 
   @Test
@@ -54,7 +59,7 @@ public class SentenceSplitterBoltTest {
     sentenceSplitterBolt.declareOutputFields(mockDeclarer);
 
     // assert
-    mockDeclarer.declareStream(Constants.STREAM_WORD, CustomArgumentMatchers.fieldsEq(new Fields(Constants.ID, Constants.WORD)));
-    mockDeclarer.declareStream(Constants.STREAM_COORDINATES, CustomArgumentMatchers.fieldsEq(new Fields(Constants.ID, Constants.LATITUDE, Constants.LONGITUDE)));
+    mockDeclarer.declareStream(eq(Constants.STREAM_WORD), CustomArgumentMatchers.fieldsEq(new Fields(Constants.ID, Constants.WORD)));
+    mockDeclarer.declareStream(eq(Constants.STREAM_COORDINATES), CustomArgumentMatchers.fieldsEq(new Fields(Constants.ID, Constants.LATITUDE, Constants.LONGITUDE)));
   }
 }
