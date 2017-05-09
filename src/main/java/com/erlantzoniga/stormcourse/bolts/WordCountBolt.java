@@ -4,6 +4,7 @@ import com.erlantzoniga.stormcourse.utils.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -17,6 +18,7 @@ public class WordCountBolt extends BaseBasicBolt {
 
   @Override
   public void execute(Tuple input, BasicOutputCollector collector) {
+    UUID id = (UUID) input.getValueByField(Constants.ID);
     String word = input.getStringByField(Constants.WORD);
 
     Integer count = counts.get(word);
@@ -25,11 +27,11 @@ public class WordCountBolt extends BaseBasicBolt {
     }
     counts.put(word, ++count);
 
-    collector.emit(new Values(word, count));
+    collector.emit(new Values(id, word, count));
   }
 
   @Override
   public void declareOutputFields(OutputFieldsDeclarer declarer) {
-    declarer.declare(new Fields(Constants.WORD, Constants.COUNT));
+    declarer.declare(new Fields(Constants.ID, Constants.WORD, Constants.COUNT));
   }
 }

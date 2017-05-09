@@ -1,5 +1,7 @@
 package com.erlantzoniga.stormcourse.spouts;
 
+import com.erlantzoniga.stormcourse.model.Tweet;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -18,8 +20,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import com.erlantzoniga.stormcourse.model.Tweet;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RandomTweetSpoutTest {
@@ -42,7 +42,7 @@ public class RandomTweetSpoutTest {
   public void ack_ok() {
     // prepare
     UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426655440000");
-    Tweet tweet = new Tweet("Test sentence", 1.1234f, 9.9876f);
+    Tweet tweet = new Tweet(uuid, "Test sentence", 1.1234f, 9.9876f);
     randomTweetSpout.emittedTuples = new HashMap<>();
     randomTweetSpout.emittedTuples.put(uuid, tweet);
 
@@ -59,7 +59,7 @@ public class RandomTweetSpoutTest {
   public void fail_ok() {
     // prepare
     UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426655440000");
-    Tweet tweet = new Tweet("Test sentence", 1.1234f, 9.9876f);
+    Tweet tweet = new Tweet(uuid, "Test sentence", 1.1234f, 9.9876f);
     SpoutOutputCollector mockCollector = Mockito.mock(SpoutOutputCollector.class);
     randomTweetSpout
         .open(Mockito.mock(Map.class), Mockito.mock(TopologyContext.class), mockCollector);

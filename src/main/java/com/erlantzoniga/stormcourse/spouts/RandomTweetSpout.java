@@ -42,10 +42,10 @@ public class RandomTweetSpout extends BaseRichSpout {
     final float latitude = coordinates[rand.nextInt(coordinates.length)];
     final float longitude = coordinates[rand.nextInt(coordinates.length)];
 
-    UUID msgId = UUID.randomUUID();
-    emittedTuples.put(msgId, new Tweet(sentence, latitude, longitude));
+    UUID tweetId = UUID.randomUUID();
+    emittedTuples.put(tweetId, new Tweet(tweetId, sentence, latitude, longitude));
 
-    collector.emit(new Values(sentence), msgId);
+    collector.emit(new Values(sentence), tweetId);
   }
 
   @Override

@@ -1,8 +1,10 @@
 package com.erlantzoniga.stormcourse;
 
+import com.erlantzoniga.stormcourse.bolts.LocationCalculatorBolt;
 import com.erlantzoniga.stormcourse.bolts.SentenceSplitterBolt;
 import com.erlantzoniga.stormcourse.bolts.WordCountBolt;
-import com.erlantzoniga.stormcourse.core.MockLocationCalculator;
+import com.erlantzoniga.stormcourse.core.ILocationCalculator;
+import com.erlantzoniga.stormcourse.module.LocationCalculatorModule;
 import com.erlantzoniga.stormcourse.spouts.RandomTweetSpout;
 import com.erlantzoniga.stormcourse.utils.Constants;
 import com.erlantzoniga.stormcourse.utils.Sleeper;
@@ -26,6 +28,13 @@ public class TopologyHelper {
   private Sleeper sleeper = new Sleeper();
   private Config conf = new Config();
 
+  @Component(modules = LocationCalculatorModule.class)
+  public interface Injector {
+    ILocationCalculator locationCalculator();
+
+    LocationCalculatorBolt locationCalculatorBolt();
+  }
+
   TopologyHelper() {
   }
 
@@ -45,7 +54,8 @@ public class TopologyHelper {
         .localOrShuffleGrouping(Constants.SPOUT_RANDOM_TWEET);
     topologyBuilder.setBolt(Constants.BOLT_WORD_COUNT, new WordCountBolt())
         .fieldsGrouping(Constants.BOLT_SENTENCE_SPLITTER, new Fields(Constants.WORD));
-    //topologyBuilder.setBolt(Constants.BOLT_LOCATION_CALCULATOR, )
+    topologyBuilder.setBolt(Constants.BOLT_LOCATION_CALCULATOR,
+        DaggerTopologyHelper_Injector.create().locationCalculatorBolt());
 
     return this;
   }

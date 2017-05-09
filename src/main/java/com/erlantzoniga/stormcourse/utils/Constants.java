@@ -15,6 +15,7 @@ public class Constants {
 
   public static final String COUNT = "COUNT";
   public static final String WORD = "WORD";
+  public static final String ID = "ID";
   public static final String TWEET = "TWEET";
   public static final String LATITUDE = "LATITUDE";
   public static final String LONGITUDE = "LONGITUDE";

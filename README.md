@@ -17,7 +17,7 @@ receives info from the spout to send the tweet text and metadata to two
 different streams.
 
 ## Chapter 4: Join bolts
-After crating two different stream to process the data in parallel, we
+After creating two different stream to process the data in parallel, we
 are going to merge this information in another bolt so we can get the
 _Trending Topics_ by location. In this case we'll use a RichBolt instead
 of a BasicBolt so we'll have to manually ack and fail tuples. We'll have 
